@@ -5,19 +5,30 @@ import '@fontsource/roboto/700.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
+import Root from './pages/Root.tsx';
 
-import { LoginPage } from '@/features/auth';
+import { LoginPage, RegisterPage } from '@/features/auth';
+import { PostingsPage } from '@/features/postings';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
-  },
-  {
-    path: '/login',
-    element: <LoginPage />,
+    element: <Root />,
+    children: [
+      {
+        path: '/login',
+        element: <LoginPage />,
+      },
+      {
+        path: '/register',
+        element: <RegisterPage />,
+      },
+      {
+        path: '/postings',
+        element: <PostingsPage />,
+      },
+    ],
   },
 ]);
 

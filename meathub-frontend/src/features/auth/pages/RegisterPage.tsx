@@ -1,15 +1,15 @@
 import React from 'react';
+import { RegisterForm } from '@/features/auth/index.ts';
 import { Box, Container, Paper, Typography } from '@mui/material';
-import { LoginForm } from '@/features/auth';
 
-export const LoginPage: React.FC = () => {
-  return <Container maxWidth='sm' >
-    <Paper elevation={5} style={{ padding: '1.5rem', marginTop: '4rem'}} >
+export const RegisterPage: React.FC = () => {
+  return <Container maxWidth='sm'>
+    <Paper elevation={5} style={{ padding: '1.5rem', marginTop: '4rem' }}>
       <Typography variant='h5' align='center' gutterBottom>
-        Login
+        Register
       </Typography>
       <Box display='flex' justifyContent='center'>
-        <LoginForm />
+        <RegisterForm />
       </Box>
     </Paper>
   </Container>;

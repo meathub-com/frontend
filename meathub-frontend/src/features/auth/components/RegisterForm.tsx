@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Button, Stack, TextField } from '@mui/material';
-import { useLogin } from '@/features/auth/index.ts';
+import { useRegistration } from '@/features/auth';
 import { storage } from '@/utils/storage.ts';
+import { Button, Stack, TextField } from '@mui/material';
 
-export const LoginForm: React.FC = () => {
+export const RegisterForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [reEnterPassword, setReEnterPassword] = useState('');
 
-  const { loginWithEmailAndPassword } = useLogin();
+  const { registerWithEmailAndPassword } = useRegistration();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -17,8 +18,12 @@ export const LoginForm: React.FC = () => {
     setPassword(event.target.value);
   };
 
+  const handleReEnterPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setReEnterPassword(event.target.value);
+  };
+
   const handleButtonClick = async () => {
-    const response = await loginWithEmailAndPassword(email, password);
+    const response = await registerWithEmailAndPassword(email, password);
     storage.setToken(response.token);
   };
 
@@ -38,7 +43,15 @@ export const LoginForm: React.FC = () => {
         value={password}
         onChange={handlePasswordChange}
       />
-      <Button variant='contained' onClick={handleButtonClick}>Sign in</Button>
+      <TextField
+        label='re-enter password'
+        variant='outlined'
+        type='password'
+        size='small'
+        value={reEnterPassword}
+        onChange={handleReEnterPasswordChange}
+      />
+      <Button variant='contained' onClick={handleButtonClick}>Register</Button>
     </Stack>
   </>;
 };
