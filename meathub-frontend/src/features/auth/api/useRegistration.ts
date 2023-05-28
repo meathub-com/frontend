@@ -7,7 +7,7 @@ type RegistrationResponse = {
 export const useRegistration = () => {
   const registerWithEmailAndPassword = async (email: string, password: string): Promise<RegistrationResponse> => {
     const payload = JSON.stringify({ email, password });
-    const response = await axios.post('register', payload);
+    const response = await axios.post('/auth/register', payload);
     return response.data as RegistrationResponse;
   };
 

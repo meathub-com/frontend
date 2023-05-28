@@ -1,7 +1,7 @@
 import Axios, { InternalAxiosRequestConfig } from 'axios';
 import { storage } from '@/utils/storage.ts';
 
-const API_URL = 'api/v1';
+const API_URL = '/api';
 
 const authRequestInterceptor = (config: InternalAxiosRequestConfig) => {
   config.headers = config.headers ?? {};

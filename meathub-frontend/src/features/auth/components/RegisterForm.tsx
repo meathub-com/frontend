@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useRegistration } from '@/features/auth';
-import { storage } from '@/utils/storage.ts';
 import { Button, Stack, TextField } from '@mui/material';
 
 export const RegisterForm: React.FC = () => {
@@ -23,8 +22,8 @@ export const RegisterForm: React.FC = () => {
   };
 
   const handleButtonClick = async () => {
-    const response = await registerWithEmailAndPassword(email, password);
-    storage.setToken(response.token);
+    await registerWithEmailAndPassword(email, password);
+    // storage.setToken(response.token);
   };
 
   return <>
