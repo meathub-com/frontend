@@ -11,6 +11,7 @@ function Root() {
         <Button variant='contained' onClick={() => navigate('/login')}>Login</Button>
         <Button variant='contained' onClick={() => navigate('/register')}>Register</Button>
         <Button variant='contained' onClick={() => navigate('/postings')}>Postings</Button>
+        <Button variant='contained' onClick={() => navigate('/company-profile')}>Profile</Button>
       </Box>
       <hr />
       <Outlet />

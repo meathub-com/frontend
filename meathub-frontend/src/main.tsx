@@ -10,6 +10,7 @@ import Root from './pages/Root.tsx';
 import { LoginPage, RegisterPage } from '@/features/auth';
 import { PostingsPage } from '@/features/postings';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { CompanyProfilePage } from '@/features/profiles';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: '/postings',
         element: <PostingsPage />,
+      },
+      {
+        path: '/company-profile',
+        element: <CompanyProfilePage />,
       },
     ],
   },

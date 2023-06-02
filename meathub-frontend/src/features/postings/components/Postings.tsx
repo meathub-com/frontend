@@ -7,7 +7,7 @@ import { Posting } from '@/features/postings/components/Posting.tsx';
 export const Postings: React.FC = () => {
   const postings = generateRandomPostings();
 
-  return <List dense sx={{ width: '100%', bgcolor: 'slategrey', overflow: 'scroll'}}>
+  return <List dense sx={{ height: '54rem',  overflowY: 'scroll' ,mt: '1rem'}}>
     {postings.map(p => <Posting id={p.id} companyName={p.companyName} offerName={p.offerName} price={p.price} />)}
   </List>;
 };
