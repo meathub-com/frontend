@@ -1,10 +1,10 @@
 import { axios } from '@/lib/axios.ts';
-
-type RegistrationResponse = {
-  authToken: string;
-  refreshToken: string;
-}
-
+//
+// type RegistrationResponse = {
+//   authToken: string;
+//   refreshToken: string;
+// }
+//
 export const useRegistration = () => {
   const registerWithEmailAndPassword = async (email: string, password: string): Promise<any> => {
     const payload = JSON.stringify({ email, password });
