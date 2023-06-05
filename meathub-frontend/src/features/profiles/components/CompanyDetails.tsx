@@ -4,8 +4,10 @@ import { useCompanyProfile } from '@/features/profiles/index.ts';
 
 export const CompanyDetails: React.FC = () => {
   const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [companyDetails, setCompanyDetails] = useState('');
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [zip, setZip] = useState('');
+  const [country, setCountry] = useState('');
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
   const { updateCompanyProfileInfo, isLoading } = useCompanyProfile();
@@ -13,15 +15,9 @@ export const CompanyDetails: React.FC = () => {
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
-  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAddress(e.target.value);
-  };
-  const handleCompanyDetailsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCompanyDetails(e.target.value);
-  };
 
   const handleUpdateButtonClick = async () => {
-    const updateData = {name, address, companyDetails};
+    const updateData = {name, street, city,zip,country};
     const updateSuccess = await updateCompanyProfileInfo(updateData);
     setIsSuccess(updateSuccess);
   };
@@ -39,20 +35,32 @@ export const CompanyDetails: React.FC = () => {
             onChange={handleNameChange}
           />
           <TextField
-            label='address'
+            label='street'
             variant='outlined'
-            value={address}
+            value={street}
             size='small'
-            onChange={handleAddressChange}
+            onChange={(e) => setStreet(e.target.value)}
           />
           <TextField
-            label='company details'
+            label='city'
             variant='outlined'
-            value={companyDetails}
-            size='medium'
-            onChange={handleCompanyDetailsChange}
-            rows={5}
-            multiline
+            value={city}
+            size='small'
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <TextField
+            label='zip code'
+            variant='outlined'
+            value={zip}
+            size='small'
+            onChange={(e) => setZip(e.target.value)}
+          />
+          <TextField
+            label='country'
+            variant='outlined'
+            value={country}
+            size='small'
+            onChange={(e) => setCountry(e.target.value)}
           />
           <Button size='medium' variant='contained' onClick={handleUpdateButtonClick}>Update details</Button>
           <Box display='flex' justifyContent='center'>

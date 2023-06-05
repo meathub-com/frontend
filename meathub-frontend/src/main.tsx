@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom/client';
 import Root from './pages/Root.tsx';
 
 import { LoginPage, RegisterPage } from '@/features/auth';
-import { PostingsPage } from '@/features/postings';
+import { CreatePostingsPage, PostingsPage } from '@/features/postings';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { CompanyProfilePage } from '@/features/profiles';
 
@@ -33,6 +33,10 @@ const router = createBrowserRouter([
         path: '/company-profile',
         element: <CompanyProfilePage />,
       },
+      {
+        path: '/create-posting',
+        element: <CreatePostingsPage/>
+      }
     ],
   },
 ]);
