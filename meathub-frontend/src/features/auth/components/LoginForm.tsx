@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Stack, TextField } from '@mui/material';
 import { useLogin } from '@/features/auth/index.ts';
+import { storage } from '@/utils/storage.ts';
 
 export const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -17,8 +18,8 @@ export const LoginForm: React.FC = () => {
   };
 
   const handleButtonClick = async () => {
-    await loginWithEmailAndPassword(email, password);
-    // storage.setToken(response.token);
+    const response = await loginWithEmailAndPassword(email, password);
+    storage.setToken(response.authToken);
   };
 
   return <>

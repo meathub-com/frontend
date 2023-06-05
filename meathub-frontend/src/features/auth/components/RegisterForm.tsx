@@ -24,7 +24,7 @@ export const RegisterForm: React.FC = () => {
 
   const handleButtonClick = async () => {
     const response = await registerWithEmailAndPassword(email, password);
-    storage.setToken(response.access_token);
+    storage.setToken(response.authToken);
   };
 
   return <>

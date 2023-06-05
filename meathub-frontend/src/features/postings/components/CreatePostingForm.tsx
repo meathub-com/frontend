@@ -1,17 +1,19 @@
 import React, {useState} from 'react'
 import { Box, Button, CircularProgress, Paper, Stack, TextField, Typography } from '@mui/material';
+import { usePostings } from '@/features/postings/index.ts';
 
 export const CreatePostingForm: React.FC = () => {
   const [postingName, setPostingName] = useState('');
   const [item, setItem] = useState('');
-  const [price, setPrice] = useState<number>();
-  const isLoading = true;
+  const [price, setPrice] = useState<number>(0);
   const isSuccess = false;
 
-  const handleCreatePostingClick = async () => {
-    console.log('test')
-  }
+  const {isLoading, createPosting} = usePostings()
 
+  const handleCreatePostingClick = async () => {
+    const payload = {postingName, item, price};
+    await createPosting(payload);
+  }
 
   return(
     <Box mt='1rem' mx='auto' width='32rem'>

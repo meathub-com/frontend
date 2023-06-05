@@ -16,7 +16,7 @@ export const useCompanyProfile = () => {
     setIsLoading(true);
     const payload = JSON.stringify(profile);
     try {
-      await axios.post('/profile/profiles', payload);
+      await axios.post('http://localhost:8081/profiles', payload);
       return true;
     } catch (err) {
       return false;
