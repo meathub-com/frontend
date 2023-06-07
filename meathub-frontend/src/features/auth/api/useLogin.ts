@@ -12,7 +12,7 @@ export const useLogin = () => {
   ): Promise<AuthResponse> => {
     const payload = JSON.stringify({ email, password });
     const response = await axios.post(
-      "http://localhost:8080/auth/register",
+      "http://localhost:8080/auth/login",
       payload
     );
     return response.data as AuthResponse;
