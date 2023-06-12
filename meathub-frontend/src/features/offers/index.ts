@@ -6,3 +6,5 @@ export * from './pages/CreateOffersPage.tsx';
 export * from './components/CreateOfferForm.tsx';
 
 export * from './api/useOffers.ts';
+
+export * from './routes/index.ts';

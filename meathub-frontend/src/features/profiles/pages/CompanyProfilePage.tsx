@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
+import { CompanyDetails } from '../components/CompanyDetails';
 
 export const CompanyProfilePage: React.FC = () => {
   return (
@@ -10,6 +11,9 @@ export const CompanyProfilePage: React.FC = () => {
       <Button variant="outlined" disabled={true}>
         Create new offer
       </Button>
+      <Box>
+        <CompanyDetails />
+      </Box>
     </Container>
   );
 };
