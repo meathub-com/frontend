@@ -1,9 +1,6 @@
 import { useContext } from 'react';
 
-import {
-  CompanyProfileContext,
-  CompanyProfileContextType,
-} from '@/features/profiles';
+import { CompanyProfileContext, CompanyProfileContextType } from '@/features/profiles';
 
 export const useCompanyProfile = () => {
   const { companyData, setCompanyData } = useContext(
@@ -21,7 +18,9 @@ export const useCompanyProfile = () => {
     );
   }
 
-    const setCompanyId = (companyId: string) 
+  const setCompanyId = () => {
+    return 0;
+  };
 
-    return {0}
+  return { setCompanyId };
 };
