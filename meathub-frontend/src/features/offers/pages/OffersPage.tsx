@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
-import { MainPageLogo } from '@/features/ui';
 import { Offers } from '@/features/offers/index';
 
 export const OffersPage: React.FC = () => {
