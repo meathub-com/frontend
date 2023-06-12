@@ -1,11 +1,15 @@
 import React from 'react';
-import { Container } from '@mui/material';
-import { CompanyDetails } from '@/features/profiles';
+import { Button, Container, Typography } from '@mui/material';
 
 export const CompanyProfilePage: React.FC = () => {
   return (
-    <Container maxWidth='lg'>
-      <CompanyDetails />
+    <Container>
+      <Typography variant="h2" textAlign="center">
+        Profile page
+      </Typography>
+      <Button variant="outlined" disabled={true}>
+        Create new offer
+      </Button>
     </Container>
   );
-}
+};

@@ -1,44 +1,39 @@
-import React from "react";
-import { Button, Box, Paper } from "@mui/material";
-import { MainPageLogo } from "@/features/ui";
-import { useNavigate } from "react-router-dom";
-import { Offers } from "@/features/offers/index";
+import React from 'react';
+import { Box, Paper, Typography } from '@mui/material';
+import { MainPageLogo } from '@/features/ui';
+import { Offers } from '@/features/offers/index';
 
 export const OffersPage: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
     <Box
       display="flex"
       mt={4}
       sx={{
-        justifyContent: "space-between",
-        alignContent: "center",
-        mx: "auto",
-        px: "2rem",
+        justifyContent: 'space-between',
+        alignContent: 'center',
+        mx: 'auto',
+        px: '2rem',
+        gap: '1rem',
       }}
     >
       <Box>
-        <MainPageLogo />
-        <Paper elevation={6}>
+        <Paper elevation={6} sx={{ minWidth: '36rem' }}>
           <Offers />
         </Paper>
       </Box>
-      <Box display="flex" sx={{ gap: "0.5rem" }}>
-        <Button
-          sx={{ height: "2.5rem" }}
-          variant="contained"
-          onClick={() => navigate("/login")}
-        >
-          Login
-        </Button>
-        <Button
-          sx={{ height: "2.5rem" }}
-          variant="contained"
-          onClick={() => navigate("/register")}
-        >
-          Register
-        </Button>
+      <Box color="red" flexGrow="1">
+        <Paper elevation={6}>
+          <Typography
+            variant="h2"
+            textAlign="center"
+            sx={{
+              flexGrow: '1',
+              padding: '1rem',
+            }}
+          >
+            mapa
+          </Typography>
+        </Paper>
       </Box>
     </Box>
   );

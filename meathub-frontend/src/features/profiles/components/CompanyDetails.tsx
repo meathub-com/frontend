@@ -17,53 +17,55 @@ export const CompanyDetails: React.FC = () => {
   };
 
   const handleUpdateButtonClick = async () => {
-    const updateData = {name, street, city,zip,country};
+    const updateData = { name, street, city, zip, country };
     const updateSuccess = await updateCompanyProfileInfo(updateData);
     setIsSuccess(updateSuccess);
   };
 
   return (
-    <Box mt='1rem' mx='auto' width='32rem'>
+    <Box mt="1rem" mx="auto" width="32rem">
       <Paper elevation={6} sx={{ padding: '3rem' }}>
         <Stack spacing={3}>
-          <Typography variant='h4'>Update your company information:</Typography>
+          <Typography variant="h4">Please enter your company information:</Typography>
           <TextField
-            label='company name'
-            variant='outlined'
+            label="company name"
+            variant="outlined"
             value={name}
-            size='small'
+            size="small"
             onChange={handleNameChange}
           />
           <TextField
-            label='street'
-            variant='outlined'
+            label="street"
+            variant="outlined"
             value={street}
-            size='small'
+            size="small"
             onChange={(e) => setStreet(e.target.value)}
           />
           <TextField
-            label='city'
-            variant='outlined'
+            label="city"
+            variant="outlined"
             value={city}
-            size='small'
+            size="small"
             onChange={(e) => setCity(e.target.value)}
           />
           <TextField
-            label='zip code'
-            variant='outlined'
+            label="zip code"
+            variant="outlined"
             value={zip}
-            size='small'
+            size="small"
             onChange={(e) => setZip(e.target.value)}
           />
           <TextField
-            label='country'
-            variant='outlined'
+            label="country"
+            variant="outlined"
             value={country}
-            size='small'
+            size="small"
             onChange={(e) => setCountry(e.target.value)}
           />
-          <Button size='medium' variant='contained' onClick={handleUpdateButtonClick}>Update details</Button>
-          <Box display='flex' justifyContent='center'>
+          <Button size="medium" variant="contained" onClick={handleUpdateButtonClick}>
+            Update details
+          </Button>
+          <Box display="flex" justifyContent="center">
             {isLoading && <CircularProgress />}
           </Box>
           {isSuccess && <Typography>succes</Typography>}

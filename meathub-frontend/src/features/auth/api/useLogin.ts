@@ -1,4 +1,4 @@
-import { axios } from "@/lib/axios.ts";
+import { axios } from '@/lib/axios.ts';
 
 type AuthResponse = {
   authToken: string;
@@ -11,10 +11,7 @@ export const useLogin = () => {
     password: string
   ): Promise<AuthResponse> => {
     const payload = JSON.stringify({ email, password });
-    const response = await axios.post(
-      "http://localhost:8080/auth/login",
-      payload
-    );
+    const response = await axios.post('/login', payload);
     return response.data as AuthResponse;
   };
 

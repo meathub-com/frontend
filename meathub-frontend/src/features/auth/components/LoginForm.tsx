@@ -22,23 +22,28 @@ export const LoginForm: React.FC = () => {
     storage.setToken(response.authToken);
   };
 
-  return <>
-    <Stack spacing={2} flexDirection='column' marginTop={2}>
-      <TextField
-        label='e-mail'
-        variant='outlined'
-        value={email}
-        size='small'
-        onChange={handleEmailChange} />
-      <TextField
-        label='password'
-        variant='outlined'
-        type='password'
-        size='small'
-        value={password}
-        onChange={handlePasswordChange}
-      />
-      <Button variant='contained' onClick={handleButtonClick}>Sign in</Button>
-    </Stack>
-  </>;
+  return (
+    <>
+      <Stack spacing={2} flexDirection="column" marginTop={2}>
+        <TextField
+          label="e-mail"
+          variant="outlined"
+          value={email}
+          size="small"
+          onChange={handleEmailChange}
+        />
+        <TextField
+          label="password"
+          variant="outlined"
+          type="password"
+          size="small"
+          value={password}
+          onChange={handlePasswordChange}
+        />
+        <Button variant="contained" onClick={handleButtonClick}>
+          Sign in
+        </Button>
+      </Stack>
+    </>
+  );
 };

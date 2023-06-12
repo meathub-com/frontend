@@ -1,0 +1,22 @@
+import React, { createContext, useState } from 'react';
+
+export const CompanyProfileContext = createContext(null);
+
+type CompanyData = {
+  companyId: string;
+  hasSubmittedInformation: boolean;
+};
+
+type Props = {
+  children?: React.ReactNode;
+};
+
+export const CompanyProfileContextProvider: React.FC<Props> = ({ children }) => {
+  const [companyData, setCompanyData] = useState<CompanyData>(null);
+
+  return (
+    <CompanyProfileContext.Provider value={{ companyData, setCompanyData }}>
+      {children}
+    </CompanyProfileContext.Provider>
+  );
+};
