@@ -5,3 +5,5 @@ export * from './pages/RegisterPage.tsx';
 export * from './api/useLogin.ts';
 export * from './api/useRegistration.ts';
 export * from './routes/index.ts';
+export * from './types';
+export * from './context/AuthContext.tsx';

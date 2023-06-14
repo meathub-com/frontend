@@ -24,6 +24,9 @@ function Root() {
         <Button variant="contained" onClick={() => navigate('/create-offer')}>
           Create offer
         </Button>
+        <Button variant="contained" onClick={() => navigate('/company-profile/first-steps')}>
+          Add profile info
+        </Button>
       </Box>
       <hr />
       <Outlet />

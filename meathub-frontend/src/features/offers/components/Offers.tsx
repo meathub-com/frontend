@@ -7,7 +7,7 @@ export const Offers: React.FC = () => {
   const offers = generateRandomOffers();
 
   return (
-    <List dense sx={{ height: '54rem', overflowY: 'scroll' }}>
+    <List dense sx={{ height: '80dvh', overflowY: 'scroll' }}>
       {offers.map((p) => (
         <Offer id={p.id} companyName={p.companyName} offerName={p.offerName} price={p.price} />
       ))}

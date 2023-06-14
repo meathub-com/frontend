@@ -3,8 +3,8 @@ import { Box, Typography } from '@mui/material';
 
 export const MainPageLogo: React.FC = () => {
   return (
-    <Box sx={{ width: '32rem', minWidth: '32rem', border: '1px solid black', margin: '1rem' }}>
-      <Typography variant="h2" textAlign="center">
+    <Box sx={{ width: '32rem', minWidth: '32rem' }}>
+      <Typography variant="h3" textAlign="start" padding="1rem">
         Meat hub
       </Typography>
     </Box>

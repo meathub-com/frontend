@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, CircularProgress, Paper, Stack, TextField, Typography } from '@mui/material';
-import { useCompanyProfile } from '@/features/profiles/index.ts';
+import { useCompanyProfile, useCompanyProfileContext } from '@/features/profiles/index.ts';
 
 export const CompanyDetails: React.FC = () => {
   const [name, setName] = useState('');
@@ -11,6 +11,7 @@ export const CompanyDetails: React.FC = () => {
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
   const { updateCompanyProfileInfo, isLoading } = useCompanyProfile();
+  const { setCompanyHasSubmittedInfo } = useCompanyProfileContext();
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -20,6 +21,7 @@ export const CompanyDetails: React.FC = () => {
     const updateData = { name, street, city, zip, country };
     const updateSuccess = await updateCompanyProfileInfo(updateData);
     setIsSuccess(updateSuccess);
+    setCompanyHasSubmittedInfo(true);
   };
 
   return (

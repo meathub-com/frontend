@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useRegistration } from "@/features/auth";
-import { Button, Stack, TextField } from "@mui/material";
-import { storage } from "@/utils/storage.ts";
+import React, { useState } from 'react';
+import { useRegistration } from '@/features/auth';
+import { Button, Stack, TextField } from '@mui/material';
+import { storage } from '@/utils/storage.ts';
 
 export const RegisterForm: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [reEnterPassword, setReEnterPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [reEnterPassword, setReEnterPassword] = useState('');
 
   const { registerWithEmailAndPassword } = useRegistration();
 
@@ -18,9 +18,7 @@ export const RegisterForm: React.FC = () => {
     setPassword(event.target.value);
   };
 
-  const handleReEnterPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleReEnterPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setReEnterPassword(event.target.value);
   };
 
