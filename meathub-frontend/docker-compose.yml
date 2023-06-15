@@ -1,10 +1,100 @@
 version: "3.8"
 
 services:
-  app:
-    container_name: docker-react-c
-    image: docker-react-i
-    build:
-      context: .
+  meathub_db:
+    image: postgres:12.2-alpine
+    container_name: "meathub_db"
     ports:
-      - 8080:80
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - fullstack
+    volumes:
+      - database_meathub:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  broker:
+    image: jromankiew/broker:latest
+    container_name: "broker-rest-api"
+    ports:
+      - "8000:8000"
+    networks:
+      - fullstack
+
+  auth:
+    image: jromankiew/auth:latest
+    container_name: "auth-rest-api"
+    environment:
+      DB_USERNAME: "postgres"
+      DB_PASSWORD: "postgres"
+      DB_DB: "postgres"
+      DB_HOST: "meathub_db"
+      DB_TABLE: "postgres"
+      DB_PORT: "5432"
+      SSL_MODE: "disable"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - meathub_db
+    networks:
+      - fullstack
+
+  offers:
+    container_name: offers
+    image: jromankiew/offers:latest
+    ports:
+      - "8082:8082"
+    environment:
+      DB_USERNAME: "postgres"
+      DB_PASSWORD: "postgres"
+      DB_DB: "postgres"
+      DB_HOST: "meathub_db"
+      DB_TABLE: "postgres"
+      DB_PORT: "5432"
+      SSL_MODE: "disable"
+    depends_on:
+      - meathub_db
+    networks:
+      - fullstack
+
+  profile:
+    image: jromankiew/profile:latest
+    container_name: "profile-rest-api"
+    environment:
+      DB_USERNAME: "postgres"
+      DB_PASSWORD: "postgres"
+      DB_DB: "postgres"
+      DB_HOST: "meathub_db"
+      DB_TABLE: "postgres"
+      DB_PORT: "5432"
+      SSL_MODE: "disable"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - meathub_db
+    networks:
+      - fullstack
+
+  #rabbitmq:
+    # image: rabbitmq:3.8.17
+    # container_name: "rabbitmq"
+      #ports:
+      #  - "5672:5672"
+    #  - "15672:15672"
+      # networks:
+    #  - fullstack
+
+volumes:
+  database_auth:
+  database_profile:
+  database_meathub:
+
+networks:
+  fullstack:
+    driver: bridge

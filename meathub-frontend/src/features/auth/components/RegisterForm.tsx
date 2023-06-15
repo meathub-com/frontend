@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { useRegistration } from '@/features/auth';
+import { useAuthContext, useRegistration } from '@/features/auth';
 import { Button, Stack, TextField } from '@mui/material';
 import { storage } from '@/utils/storage.ts';
+import { useCompanyProfileContext } from '@/features/profiles';
 
 export const RegisterForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [reEnterPassword, setReEnterPassword] = useState('');
 
-  const { registerWithEmailAndPassword } = useRegistration();
+  const { mockRegisterWithEmailAndPassword } = useRegistration();
+  const { setUserRole } = useAuthContext();
+  const { setCompanyId, setCompanyHasSubmittedInfo } = useCompanyProfileContext();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -23,8 +26,11 @@ export const RegisterForm: React.FC = () => {
   };
 
   const handleButtonClick = async () => {
-    const response = await registerWithEmailAndPassword(email, password);
+    const response = await mockRegisterWithEmailAndPassword(email, password);
     storage.setToken(response.authToken);
+    setUserRole(response.role);
+    setCompanyId(response.companyId);
+    setCompanyHasSubmittedInfo(false);
   };
 
   return (

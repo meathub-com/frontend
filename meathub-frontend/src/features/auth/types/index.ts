@@ -4,3 +4,10 @@ export type AuthContextType = {
   userRole: UserRole;
   setUserRole: React.Dispatch<React.SetStateAction<UserRole>>;
 };
+
+export type AuthResponse = {
+  authToken: string;
+  refreshToken: string;
+  companyId: string;
+  role: UserRole;
+};

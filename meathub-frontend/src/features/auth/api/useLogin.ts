@@ -1,11 +1,7 @@
 import { axios } from '@/lib/axios.ts';
 
-import { LOGIN_URL } from '@/features/auth';
-
-type AuthResponse = {
-  authToken: string;
-  refreshToken: string;
-};
+import { AuthResponse, LOGIN_URL } from '@/features/auth';
+import { delay } from '@/lib/helpers';
 
 export const useLogin = () => {
   const loginWithEmailAndPassword = async (
@@ -17,5 +13,20 @@ export const useLogin = () => {
     return response.data as AuthResponse;
   };
 
-  return { loginWithEmailAndPassword };
+  const mockLoginWithEmailAndPassword = async (
+    email: string,
+    password: string
+  ): Promise<AuthResponse> => {
+    email;
+    password;
+    await delay(2);
+    return {
+      authToken: 'abcd',
+      refreshToken: 'abcdrefresh',
+      companyId: '4',
+      role: 'company',
+    };
+  };
+
+  return { loginWithEmailAndPassword, mockLoginWithEmailAndPassword };
 };

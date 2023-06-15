@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Stack, TextField } from '@mui/material';
-import { useLogin } from '@/features/auth/index.ts';
+import { useAuthContext, useLogin } from '@/features/auth/index.ts';
 import { storage } from '@/utils/storage.ts';
+import { useCompanyProfileContext } from '@/features/profiles';
 
 export const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { loginWithEmailAndPassword } = useLogin();
+  const { mockLoginWithEmailAndPassword } = useLogin();
+  const { setCompanyId } = useCompanyProfileContext();
+  const { setUserRole } = useAuthContext();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -18,8 +21,10 @@ export const LoginForm: React.FC = () => {
   };
 
   const handleButtonClick = async () => {
-    const response = await loginWithEmailAndPassword(email, password);
+    const response = await mockLoginWithEmailAndPassword(email, password);
     storage.setToken(response.authToken);
+    setCompanyId(response.companyId);
+    setUserRole(response.role);
   };
 
   return (

@@ -6,7 +6,7 @@ import '@fontsource/roboto/700.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { LoginPage, RegisterPage } from '@/features/auth';
+import { AuthContextProvider, LoginPage, RegisterPage } from '@/features/auth';
 import { CreateOffersPage, OffersPage } from '@/features/offers';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { CompanyProfilePage, CompanyProfileContextProvider } from '@/features/profiles';
@@ -17,37 +17,45 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <LandingPage />,
-  },
-  {
-    path: 'login',
-    element: <LoginPage />,
-  },
-  {
-    path: 'register',
-    element: <RegisterPage />,
-  },
-  {
-    path: 'offers',
-    element: <OffersPage />,
-  },
-  {
-    path: 'company-profile',
-    element: <CompanyProfilePage />,
-  },
-  {
-    path: '/company-profile/first-steps',
-    element: <FirstTimerSetup />,
-  },
-  {
-    path: 'create-offer',
-    element: <CreateOffersPage />,
+    children: [
+      {
+        path: '',
+        element: <OffersPage />,
+      },
+      {
+        path: 'login',
+        element: <LoginPage />,
+      },
+      {
+        path: 'register',
+        element: <RegisterPage />,
+      },
+      {
+        path: 'offers',
+        element: <OffersPage />,
+      },
+      {
+        path: 'company-profile',
+        element: <CompanyProfilePage />,
+      },
+      {
+        path: '/company-profile/first-steps',
+        element: <FirstTimerSetup />,
+      },
+      {
+        path: 'create-offer',
+        element: <CreateOffersPage />,
+      },
+    ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <CompanyProfileContextProvider>
-      <RouterProvider router={router} />
-    </CompanyProfileContextProvider>
+    <AuthContextProvider>
+      <CompanyProfileContextProvider>
+        <RouterProvider router={router} />
+      </CompanyProfileContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );

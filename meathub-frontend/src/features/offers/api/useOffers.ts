@@ -1,8 +1,6 @@
 import { axios } from '@/lib/axios.ts';
 import { useState } from 'react';
 
-import { CREATE_OFFER_URL } from '@/features/offers';
-
 type CreateCompanyOfferRequest = {
   offerName: string;
   item: string;
@@ -16,7 +14,7 @@ export const useOffers = () => {
     setIsLoading(true);
     const payload = JSON.stringify(profile);
     try {
-      await axios.post(CREATE_OFFER_URL, payload);
+      await axios.post('/profiles/6/offer', payload);
       return true;
     } catch (err) {
       return false;

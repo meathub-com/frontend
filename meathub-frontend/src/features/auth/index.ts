@@ -7,3 +7,4 @@ export * from './api/useRegistration.ts';
 export * from './routes/index.ts';
 export * from './types';
 export * from './context/AuthContext.tsx';
+export * from './hooks/useAuthContext.ts';

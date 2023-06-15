@@ -1,1 +1,1 @@
-export const CREATE_OFFER_URL = '/offers';
+export const CREATE_OFFER_URL = '/offer';
