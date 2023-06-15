@@ -1,10 +1,15 @@
 export * from './pages/OffersPage.tsx';
+export * from './pages/CreateOffersPage.tsx';
 
 export * from './components/Offer.tsx';
 export * from './components/Offers.tsx';
-export * from './pages/CreateOffersPage.tsx';
 export * from './components/CreateOfferForm.tsx';
+export * from './components/OfferDetails.tsx';
 
-export * from './api/useOffers.ts';
+export * from './api/useCreateOffer.ts';
+export * from './api/useGetOffers.ts';
 
+export * from './utils/mockData.ts';
+
+export * from './types/index.ts';
 export * from './routes/index.ts';

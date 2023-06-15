@@ -1,15 +1,41 @@
 import React from 'react';
-import { generateRandomOffers } from '@/features/offers/utils/mockData.ts';
-import { List } from '@mui/material';
-import { Offer } from '@/features/offers/index';
+import { Box, CircularProgress, List, Skeleton } from '@mui/material';
+import { Offer, OfferType, useGetOffers } from '@/features/offers/index';
 
-export const Offers: React.FC = () => {
-  const offers = generateRandomOffers();
+type Props = {
+  onOfferSelected: (offer: OfferType) => void;
+};
+
+export const Offers: React.FC<Props> = (props) => {
+  const { onOfferSelected } = props;
+  const getOffersQuery = useGetOffers();
+  const { data, isLoading, isError, error } = getOffersQuery;
+  if (isLoading) {
+    return (
+      <Box
+        width="100%"
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          padding: '1rem',
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+  if (isError) {
+    return <pre>{JSON.stringify(error)}</pre>;
+  }
+
+  const handleOfferClick = (offer: OfferType) => {
+    onOfferSelected(offer);
+  };
 
   return (
     <List dense sx={{ height: '80dvh', overflowY: 'scroll' }}>
-      {offers.map((p) => (
-        <Offer id={p.id} companyName={p.companyName} offerName={p.offerName} price={p.price} />
+      {data.map((offer) => (
+        <Offer offerData={offer} onClick={() => handleOfferClick(offer)} />
       ))}
     </List>
   );

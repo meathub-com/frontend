@@ -1,22 +1,26 @@
-import React from "react";
-import { Offer as OfferType } from "@/features/offers/types";
-import { ListItem, ListItemButton, ListItemText } from "@mui/material";
+import React from 'react';
+import { OfferType } from '@/features/offers/types';
+import { ListItem, ListItemButton, ListItemText } from '@mui/material';
 
-export const Offer: React.FC<OfferType> = (props) => {
-  const { id, companyName, offerName, price } = props;
+type Props = {
+  offerData: OfferType;
+  onClick: () => void;
+};
+export const Offer: React.FC<Props> = (props) => {
+  const { id, item, price, cityName, offerName, companyName } = props.offerData;
 
   return (
-    <ListItem disablePadding key={id}>
+    <ListItem disablePadding key={id} onClick={props.onClick}>
       <ListItemButton
         sx={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'space-evenly',
+          alignItems: 'center',
         }}
       >
         <ListItemText
-          primary={companyName}
-          secondary={`${offerName} ${price}`}
+          primary={`${offerName}`}
+          secondary={`${companyName} ${cityName} ${item} ${price}zł`}
         />
       </ListItemButton>
     </ListItem>

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
-import { Offers } from '@/features/offers/index';
+import { OfferDetails, OfferType, Offers } from '@/features/offers/index';
 
 export const OffersPage: React.FC = () => {
+  const [selectedOffer, setSelectedOffer] = useState<OfferType | null>(null);
+
+  const handleOfferSelected = (offer: OfferType) => {
+    setSelectedOffer(offer);
+    console.log(selectedOffer);
+  };
+
   return (
     <Box
       display="flex"
@@ -17,11 +24,11 @@ export const OffersPage: React.FC = () => {
     >
       <Box>
         <Paper elevation={6} sx={{ minWidth: '36rem' }}>
-          <Offers />
+          <Offers onOfferSelected={handleOfferSelected} />
         </Paper>
       </Box>
-      <Box color="red" flexGrow="1">
-        <Paper elevation={6}>
+      <Box flexGrow="1" sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Paper elevation={6} sx={{ width: '100%' }}>
           <Typography
             variant="h2"
             textAlign="center"
@@ -31,6 +38,7 @@ export const OffersPage: React.FC = () => {
             }}
           >
             mapa
+            {selectedOffer !== null && <OfferDetails offerDetails={selectedOffer} />}
           </Typography>
         </Paper>
       </Box>
