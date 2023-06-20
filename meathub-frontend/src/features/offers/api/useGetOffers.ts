@@ -8,7 +8,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 
 const mockGetComments = async (): Promise<OfferType[]> => {
-  await delay(5);
+  await delay(3);
   const offers = generateRandomOffers();
   return offers;
 };

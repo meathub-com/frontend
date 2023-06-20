@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
-import { Box, Button, CircularProgress, Paper, Stack, TextField, Typography } from '@mui/material';
-import { useCompanyProfile, useCompanyProfileContext } from '@/features/profiles/index.ts';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+import {
+  useUpdateCompanyProfile,
+  useCompanyProfileContext,
+} from '@/features/profiles/index.ts';
 
 export const CompanyDetails: React.FC = () => {
   const [name, setName] = useState('');
@@ -8,9 +19,9 @@ export const CompanyDetails: React.FC = () => {
   const [city, setCity] = useState('');
   const [zip, setZip] = useState('');
   const [country, setCountry] = useState('');
-  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
-  const { updateCompanyProfileInfo, isLoading } = useCompanyProfile();
+  const updateProfileMutation = useUpdateCompanyProfile();
+  const { isLoading, isSuccess } = updateProfileMutation;
   const { setCompanyHasSubmittedInfo } = useCompanyProfileContext();
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,17 +29,20 @@ export const CompanyDetails: React.FC = () => {
   };
 
   const handleUpdateButtonClick = async () => {
-    const updateData = { name, street, city, zip, country };
-    const updateSuccess = await updateCompanyProfileInfo(updateData);
-    setIsSuccess(updateSuccess);
-    setCompanyHasSubmittedInfo(true);
+    const params = { name, street, city, zip, country };
+    updateProfileMutation.mutate(params);
+    if (updateProfileMutation.isSuccess) {
+      setCompanyHasSubmittedInfo(true);
+    }
   };
 
   return (
     <Box mt="1rem" mx="auto" width="32rem">
       <Paper elevation={6} sx={{ padding: '3rem' }}>
         <Stack spacing={3}>
-          <Typography variant="h4">Please enter your company information:</Typography>
+          <Typography variant="h4">
+            Please enter your company information:
+          </Typography>
           <TextField
             label="company name"
             variant="outlined"
@@ -64,7 +78,11 @@ export const CompanyDetails: React.FC = () => {
             size="small"
             onChange={(e) => setCountry(e.target.value)}
           />
-          <Button size="medium" variant="contained" onClick={handleUpdateButtonClick}>
+          <Button
+            size="medium"
+            variant="contained"
+            onClick={handleUpdateButtonClick}
+          >
             Update details
           </Button>
           <Box display="flex" justifyContent="center">

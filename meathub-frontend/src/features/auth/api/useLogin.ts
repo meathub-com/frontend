@@ -17,7 +17,7 @@ const mockLoginWithEmailAndPassword = async (
 ): Promise<AuthResponse> => {
   params;
   console.log(params);
-  await delay(2);
+  await delay(3);
   return {
     authToken: 'login_auth_token',
     refreshToken: 'login_auth_refresh_token',

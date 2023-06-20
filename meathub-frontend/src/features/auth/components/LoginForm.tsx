@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Stack, TextField } from '@mui/material';
+import { Button, CircularProgress, Stack, TextField } from '@mui/material';
 import { useAuthContext, useLogin } from '@/features/auth/index.ts';
 import { storage } from '@/utils/storage.ts';
 import { useCompanyProfileContext } from '@/features/profiles';
@@ -9,6 +9,7 @@ export const LoginForm: React.FC = () => {
   const [password, setPassword] = useState('');
 
   const loginMutation = useLogin();
+  const { isSuccess, isLoading, data } = loginMutation;
 
   const { setCompanyId } = useCompanyProfileContext();
   const { setUserRole } = useAuthContext();
@@ -24,9 +25,9 @@ export const LoginForm: React.FC = () => {
   const handleButtonClick = () => {
     const params = { email, password };
     loginMutation.mutate(params);
-    if (loginMutation.isSuccess) {
-      setCompanyId(loginMutation.data.companyId);
-      storage.setToken(loginMutation.data.authToken);
+    if (isSuccess) {
+      setCompanyId(data.companyId);
+      storage.setToken(data.authToken);
       setUserRole('company');
     }
   };
@@ -52,6 +53,7 @@ export const LoginForm: React.FC = () => {
         <Button variant="contained" onClick={handleButtonClick}>
           Sign in
         </Button>
+        {isLoading && <CircularProgress />}
       </Stack>
     </>
   );

@@ -17,7 +17,7 @@ const mockRegisterWithEmailAndPassword = async (
 ): Promise<AuthResponse> => {
   params;
   console.log(params);
-  await delay(2);
+  await delay(3);
   return {
     authToken: 'register_auth_token',
     refreshToken: 'register_auth_refresh_token',

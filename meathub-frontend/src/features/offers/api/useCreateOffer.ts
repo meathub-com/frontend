@@ -21,7 +21,7 @@ const createOffer = async (
 
 const mockCreateOffer = async (params: CreateCompanyOfferRequest) => {
   params;
-  await delay(5);
+  await delay(3);
   return Promise.resolve();
 };
 

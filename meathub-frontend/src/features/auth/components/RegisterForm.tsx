@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuthContext, useRegistration } from '@/features/auth';
-import { Button, Stack, TextField } from '@mui/material';
+import { Button, CircularProgress, Stack, TextField } from '@mui/material';
 import { storage } from '@/utils/storage.ts';
 import { useCompanyProfileContext } from '@/features/profiles';
 
@@ -10,6 +10,7 @@ export const RegisterForm: React.FC = () => {
   const [reEnterPassword, setReEnterPassword] = useState('');
 
   const registerMutation = useRegistration();
+  const { data, isLoading, isSuccess } = registerMutation;
 
   const { setUserRole } = useAuthContext();
   const { setCompanyId, setCompanyHasSubmittedInfo } =
@@ -32,10 +33,10 @@ export const RegisterForm: React.FC = () => {
   const handleButtonClick = async () => {
     const params = { email, password };
     registerMutation.mutate(params);
-    if (registerMutation.isSuccess) {
-      storage.setToken(registerMutation.data.authToken);
+    if (isSuccess) {
+      storage.setToken(data.authToken);
       setUserRole('company');
-      setCompanyId(registerMutation.data.companyId);
+      setCompanyId(data.companyId);
       setCompanyHasSubmittedInfo(false);
     }
   };
@@ -69,6 +70,7 @@ export const RegisterForm: React.FC = () => {
         <Button variant="contained" onClick={handleButtonClick}>
           Register
         </Button>
+        {isLoading && <CircularProgress />}
       </Stack>
     </>
   );

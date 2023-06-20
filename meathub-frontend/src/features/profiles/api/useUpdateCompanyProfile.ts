@@ -20,7 +20,7 @@ const updateCompanyProfileInfo = async (
 
 const mockUpdateCompanyProfileInfo = async (params: UpdateCompanyProfile) => {
   params;
-  await delay(5);
+  await delay(3);
   return Promise.resolve();
 };
 
