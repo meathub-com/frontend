@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, CircularProgress, List, Skeleton } from '@mui/material';
+import { Box, CircularProgress, List } from '@mui/material';
 import { Offer, OfferType, useGetOffers } from '@/features/offers/index';
 
 type Props = {
@@ -35,7 +35,11 @@ export const Offers: React.FC<Props> = (props) => {
   return (
     <List dense sx={{ height: '80dvh', overflowY: 'scroll' }}>
       {data.map((offer) => (
-        <Offer offerData={offer} onClick={() => handleOfferClick(offer)} />
+        <Offer
+          key={offer.id}
+          offerData={offer}
+          onClick={() => handleOfferClick(offer)}
+        />
       ))}
     </List>
   );

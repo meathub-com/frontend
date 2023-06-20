@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -7,25 +7,38 @@ import {
   Stack,
   TextField,
   Typography,
-} from "@mui/material";
-import { useOffers } from "@/features/offers/index.ts";
+} from '@mui/material';
+import { useCreateOffer } from '@/features/offers/index.ts';
+import { useCompanyProfileContext } from '@/features/profiles';
 
 export const CreateOfferForm: React.FC = () => {
-  const [offerName, setOfferName] = useState("");
-  const [item, setItem] = useState("");
+  const [offerName, setOfferName] = useState('');
+  const [item, setItem] = useState('');
   const [price, setPrice] = useState<number>(0);
-  const isSuccess = false;
 
-  const { isLoading, createOffer } = useOffers();
+  const { companyData } = useCompanyProfileContext();
+  const createOfferMutation = useCreateOffer();
+  const { isLoading, isSuccess } = createOfferMutation;
 
   const handleCreateOfferClick = async () => {
-    const payload = { offerName, item, price };
-    await createOffer(payload);
+    if (companyData === null || companyData.companyId === null) {
+      throw 'Cannot create offers while company data conetxt is null';
+    }
+    const params = {
+      profileId: companyData.companyId,
+      offer: {
+        offerName,
+        item,
+        price,
+      },
+    };
+
+    createOfferMutation.mutate(params);
   };
 
   return (
     <Box mt="1rem" mx="auto" width="32rem">
-      <Paper elevation={6} sx={{ padding: "3rem" }}>
+      <Paper elevation={6} sx={{ padding: '3rem' }}>
         <Stack spacing={3}>
           <Typography variant="h4">Create a new offer:</Typography>
           <TextField

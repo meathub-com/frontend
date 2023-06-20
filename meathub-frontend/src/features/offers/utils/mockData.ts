@@ -59,9 +59,11 @@ export const generateRandomOffers = (): OfferType[] => {
   const offers: OfferType[] = [];
 
   for (let i = 1; i <= 50; i++) {
-    const randomCompanyName = groceryCompanyNames[getRandomInt(0, groceryCompanyNames.length - 1)];
+    const randomCompanyName =
+      groceryCompanyNames[getRandomInt(0, groceryCompanyNames.length - 1)];
     const randomOfferName = generateRandomOfferName();
-    const randomCityName = polishCityNames[getRandomInt(0, polishCityNames.length - 1)];
+    const randomCityName =
+      polishCityNames[getRandomInt(0, polishCityNames.length - 1)];
     const randomItem = extractMeatItem(randomOfferName);
     const randomPrice = getRandomInt(300, 500);
 

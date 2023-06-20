@@ -9,9 +9,11 @@ export const RegisterForm: React.FC = () => {
   const [password, setPassword] = useState('');
   const [reEnterPassword, setReEnterPassword] = useState('');
 
-  const { mockRegisterWithEmailAndPassword } = useRegistration();
+  const registerMutation = useRegistration();
+
   const { setUserRole } = useAuthContext();
-  const { setCompanyId, setCompanyHasSubmittedInfo } = useCompanyProfileContext();
+  const { setCompanyId, setCompanyHasSubmittedInfo } =
+    useCompanyProfileContext();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -21,16 +23,21 @@ export const RegisterForm: React.FC = () => {
     setPassword(event.target.value);
   };
 
-  const handleReEnterPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleReEnterPasswordChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setReEnterPassword(event.target.value);
   };
 
   const handleButtonClick = async () => {
-    const response = await mockRegisterWithEmailAndPassword(email, password);
-    storage.setToken(response.authToken);
-    setUserRole(response.role);
-    setCompanyId(response.companyId);
-    setCompanyHasSubmittedInfo(false);
+    const params = { email, password };
+    registerMutation.mutate(params);
+    if (registerMutation.isSuccess) {
+      storage.setToken(registerMutation.data.authToken);
+      setUserRole('company');
+      setCompanyId(registerMutation.data.companyId);
+      setCompanyHasSubmittedInfo(false);
+    }
   };
 
   return (

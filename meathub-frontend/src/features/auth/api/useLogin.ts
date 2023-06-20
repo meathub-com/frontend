@@ -1,33 +1,37 @@
 import { axios } from '@/lib/axios.ts';
-import { useQuery, useMutation } from '@tanstack/react-query';
 
-import { AuthResponse, LOGIN_URL } from '@/features/auth';
-import { delay } from '@/lib/helpers';
+import { AuthResponse, LOGIN_URL, LoginRequest } from '@/features/auth';
+import { delay, selectBasedOnMock } from '@/lib/helpers';
+import { useMutation } from '@tanstack/react-query';
+
+const loginWithEmailAndPassword = async (
+  params: LoginRequest
+): Promise<AuthResponse> => {
+  const payload = JSON.stringify(params);
+  const response = await axios.post(LOGIN_URL, payload);
+  return response.data;
+};
+
+const mockLoginWithEmailAndPassword = async (
+  params: LoginRequest
+): Promise<AuthResponse> => {
+  params;
+  console.log(params);
+  await delay(2);
+  return {
+    authToken: 'login_auth_token',
+    refreshToken: 'login_auth_refresh_token',
+    companyId: '1',
+    role: 'company',
+  };
+};
 
 export const useLogin = () => {
-  const loginWithEmailAndPassword = async (
-    email: string,
-    password: string
-  ): Promise<AuthResponse> => {
-    const payload = JSON.stringify({ email, password });
-    const response = await axios.post(LOGIN_URL, payload);
-    return response.data as AuthResponse;
-  };
-
-  const mockLoginWithEmailAndPassword = async (
-    email: string,
-    password: string
-  ): Promise<AuthResponse> => {
-    email;
-    password;
-    await delay(2);
-    return {
-      authToken: 'abcd',
-      refreshToken: 'abcdrefresh',
-      companyId: '4',
-      role: 'company',
-    };
-  };
-
-  return { loginWithEmailAndPassword, mockLoginWithEmailAndPassword };
+  return useMutation({
+    mutationFn: (params: LoginRequest) =>
+      selectBasedOnMock(
+        mockLoginWithEmailAndPassword(params),
+        loginWithEmailAndPassword(params)
+      ),
+  });
 };

@@ -1,16 +1,25 @@
-import { delay } from '@/lib/helpers';
-import { OfferType, generateRandomOffers } from '@/features/offers';
+import { axios } from '@/lib/axios';
+import { delay, selectBasedOnMock } from '@/lib/helpers';
+import {
+  GET_OFFERS_URL,
+  OfferType,
+  generateRandomOffers,
+} from '@/features/offers';
 import { useQuery } from '@tanstack/react-query';
 
-export const getCommentsMock = async (): Promise<OfferType[]> => {
+const mockGetComments = async (): Promise<OfferType[]> => {
   await delay(5);
   const offers = generateRandomOffers();
   return offers;
 };
 
+const getComments = async (): Promise<OfferType[]> => {
+  return (await axios.get(GET_OFFERS_URL)).data;
+};
+
 export const useGetOffers = () => {
   return useQuery({
     queryKey: ['offers'],
-    queryFn: getCommentsMock,
+    queryFn: selectBasedOnMock(mockGetComments, getComments),
   });
 };

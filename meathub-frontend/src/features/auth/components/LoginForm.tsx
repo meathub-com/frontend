@@ -8,7 +8,8 @@ export const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { mockLoginWithEmailAndPassword } = useLogin();
+  const loginMutation = useLogin();
+
   const { setCompanyId } = useCompanyProfileContext();
   const { setUserRole } = useAuthContext();
 
@@ -20,11 +21,14 @@ export const LoginForm: React.FC = () => {
     setPassword(event.target.value);
   };
 
-  const handleButtonClick = async () => {
-    const response = await mockLoginWithEmailAndPassword(email, password);
-    storage.setToken(response.authToken);
-    setCompanyId(response.companyId);
-    setUserRole(response.role);
+  const handleButtonClick = () => {
+    const params = { email, password };
+    loginMutation.mutate(params);
+    if (loginMutation.isSuccess) {
+      setCompanyId(loginMutation.data.companyId);
+      storage.setToken(loginMutation.data.authToken);
+      setUserRole('company');
+    }
   };
 
   return (

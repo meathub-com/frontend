@@ -1,27 +1,33 @@
 import { axios } from '@/lib/axios.ts';
-import { useState } from 'react';
+import { CREATE_OFFER_URL } from '@/features/offers';
+import { useMutation } from '@tanstack/react-query';
+import { delay, selectBasedOnMock } from '@/lib/helpers';
 
 type CreateCompanyOfferRequest = {
-  offerName: string;
-  item: string;
-  price: number;
+  profileId: string;
+  offer: {
+    offerName: string;
+    item: string;
+    price: number;
+  };
 };
 
-export const useOffers = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const createOffer = async (
+  params: CreateCompanyOfferRequest
+): Promise<void> => {
+  const payload = JSON.stringify(params.offer);
+  return await axios.post(CREATE_OFFER_URL(params.profileId), payload);
+};
 
-  const createOffer = async (profile: CreateCompanyOfferRequest): Promise<boolean> => {
-    setIsLoading(true);
-    const payload = JSON.stringify(profile);
-    try {
-      await axios.post('/profiles/6/offer', payload);
-      return true;
-    } catch (err) {
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  };
+const mockCreateOffer = async (params: CreateCompanyOfferRequest) => {
+  params;
+  await delay(5);
+  return Promise.resolve();
+};
 
-  return { createOffer, isLoading };
+export const useCreateOffer = () => {
+  return useMutation({
+    mutationFn: (params: CreateCompanyOfferRequest) =>
+      selectBasedOnMock(mockCreateOffer(params), createOffer(params)),
+  });
 };
