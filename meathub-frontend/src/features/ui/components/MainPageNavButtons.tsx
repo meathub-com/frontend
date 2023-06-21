@@ -1,10 +1,16 @@
 import { useAuthContext } from '@/features/auth';
+import { storage } from '@/utils/storage';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 export const MainPageNavButtons: React.FC = () => {
   const navigate = useNavigate();
-  const { userRole } = useAuthContext();
+  const { userRole, setUserRole } = useAuthContext();
+
+  const handleLogout = () => {
+    storage.clearToken();
+    setUserRole('anonymous');
+  };
 
   return (
     <>
@@ -41,7 +47,7 @@ export const MainPageNavButtons: React.FC = () => {
           <Button
             size="large"
             variant="outlined"
-            onClick={() => navigate('/logout')}
+            onClick={() => handleLogout}
             sx={{ color: 'inherit' }}
           >
             Logout

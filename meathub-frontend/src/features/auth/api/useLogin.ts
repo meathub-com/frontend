@@ -26,12 +26,13 @@ const mockLoginWithEmailAndPassword = async (
   };
 };
 
+const fn = selectBasedOnMock(
+  mockLoginWithEmailAndPassword,
+  loginWithEmailAndPassword
+);
+
 export const useLogin = () => {
   return useMutation({
-    mutationFn: (params: LoginRequest) =>
-      selectBasedOnMock(
-        mockLoginWithEmailAndPassword(params),
-        loginWithEmailAndPassword(params)
-      ),
+    mutationFn: (params: LoginRequest) => fn(params),
   });
 };

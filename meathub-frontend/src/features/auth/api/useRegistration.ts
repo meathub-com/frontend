@@ -26,12 +26,13 @@ const mockRegisterWithEmailAndPassword = async (
   };
 };
 
+const fn = selectBasedOnMock(
+  mockRegisterWithEmailAndPassword,
+  registerWithEmailAndPassword
+);
+
 export const useRegistration = () => {
   return useMutation({
-    mutationFn: (params: RegisterRequest) =>
-      selectBasedOnMock(
-        mockRegisterWithEmailAndPassword(params),
-        registerWithEmailAndPassword(params)
-      ),
+    mutationFn: (params: RegisterRequest) => fn(params),
   });
 };

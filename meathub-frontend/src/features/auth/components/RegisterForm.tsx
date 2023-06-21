@@ -32,7 +32,7 @@ export const RegisterForm: React.FC = () => {
 
   const handleButtonClick = async () => {
     const params = { email, password };
-    registerMutation.mutate(params);
+    await registerMutation.mutateAsync(params);
     if (isSuccess) {
       storage.setToken(data.authToken);
       setUserRole('company');
