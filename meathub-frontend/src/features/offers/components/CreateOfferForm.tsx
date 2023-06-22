@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
@@ -18,7 +19,6 @@ export const CreateOfferForm: React.FC = () => {
 
   const { companyData } = useCompanyProfileContext();
   const createOfferMutation = useCreateOffer();
-  const { isLoading, isSuccess } = createOfferMutation;
 
   const handleCreateOfferClick = async () => {
     if (companyData === null || companyData.companyId === null) {
@@ -71,9 +71,16 @@ export const CreateOfferForm: React.FC = () => {
             Create Offer
           </Button>
           <Box display="flex" justifyContent="center">
-            {isLoading && <CircularProgress />}
+            {createOfferMutation.isLoading && <CircularProgress />}
+            {createOfferMutation.isSuccess && (
+              <Alert severity="success">Offer created</Alert>
+            )}
+            {createOfferMutation.isError && (
+              <Alert severity="error">
+                {createOfferMutation.error as string}
+              </Alert>
+            )}
           </Box>
-          {isSuccess && <Typography>succes</Typography>}
         </Stack>
       </Paper>
     </Box>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
@@ -21,7 +22,7 @@ export const CompanyDetails: React.FC = () => {
   const [country, setCountry] = useState('');
 
   const updateProfileMutation = useUpdateCompanyProfile();
-  const { isLoading, isSuccess } = updateProfileMutation;
+
   const { setCompanyHasSubmittedInfo } = useCompanyProfileContext();
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,10 +31,11 @@ export const CompanyDetails: React.FC = () => {
 
   const handleUpdateButtonClick = async () => {
     const params = { name, street, city, zip, country };
-    updateProfileMutation.mutate(params);
-    if (updateProfileMutation.isSuccess) {
-      setCompanyHasSubmittedInfo(true);
-    }
+    updateProfileMutation.mutate(params, {
+      onSuccess: () => {
+        setCompanyHasSubmittedInfo(true);
+      },
+    });
   };
 
   return (
@@ -86,9 +88,16 @@ export const CompanyDetails: React.FC = () => {
             Update details
           </Button>
           <Box display="flex" justifyContent="center">
-            {isLoading && <CircularProgress />}
+            {updateProfileMutation.isLoading && <CircularProgress />}
+            {updateProfileMutation.isSuccess && (
+              <Alert severity="success">Profile updated</Alert>
+            )}
+            {updateProfileMutation.isError && (
+              <Alert severity="error">
+                {updateProfileMutation.error as string}
+              </Alert>
+            )}
           </Box>
-          {isSuccess && <Typography>succes</Typography>}
         </Stack>
       </Paper>
     </Box>

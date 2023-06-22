@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Alert, Box, Button, Container, Typography } from '@mui/material';
 import { useCompanyProfileContext } from '@/features/profiles';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const CompanyProfilePage: React.FC = () => {
   const { companyData } = useCompanyProfileContext();
@@ -27,12 +27,24 @@ export const CompanyProfilePage: React.FC = () => {
           Company information
         </Button>
       </Box>
-      {createOfferDisabled && (
-        <Typography variant="body1" textAlign="center">
-          Looks like you have not submitted your company information, to click&nbsp;
-          <Link to="first-steps">here</Link>
-        </Typography>
-      )}
+      <Container maxWidth="sm">
+        {createOfferDisabled && (
+          <Alert
+            severity="info"
+            action={
+              <Button
+                color="inherit"
+                sx={{ whiteSpace: 'nowrap', mt: '-0.2rem' }}
+                onClick={() => navigate('/company-profile/first-steps')}
+              >
+                Click here
+              </Button>
+            }
+          >
+            You have not submitted your company information
+          </Alert>
+        )}
+      </Container>
     </Container>
   );
 };

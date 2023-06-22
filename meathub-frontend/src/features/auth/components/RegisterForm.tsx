@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { useAuthContext, useRegistration } from '@/features/auth';
-import { Button, CircularProgress, Stack, TextField } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Stack,
+  TextField,
+} from '@mui/material';
 import { storage } from '@/utils/storage.ts';
 import { useCompanyProfileContext } from '@/features/profiles';
 
@@ -10,7 +17,6 @@ export const RegisterForm: React.FC = () => {
   const [reEnterPassword, setReEnterPassword] = useState('');
 
   const registerMutation = useRegistration();
-  const { data, isLoading, isSuccess } = registerMutation;
 
   const { setUserRole } = useAuthContext();
   const { setCompanyId, setCompanyHasSubmittedInfo } =
@@ -32,13 +38,14 @@ export const RegisterForm: React.FC = () => {
 
   const handleButtonClick = async () => {
     const params = { email, password };
-    await registerMutation.mutateAsync(params);
-    if (isSuccess) {
-      storage.setToken(data.authToken);
-      setUserRole('company');
-      setCompanyId(data.companyId);
-      setCompanyHasSubmittedInfo(false);
-    }
+    registerMutation.mutate(params, {
+      onSuccess: (data) => {
+        storage.setToken(data.authToken);
+        setUserRole('company');
+        setCompanyId(data.companyId);
+        setCompanyHasSubmittedInfo(false);
+      },
+    });
   };
 
   return (
@@ -70,7 +77,15 @@ export const RegisterForm: React.FC = () => {
         <Button variant="contained" onClick={handleButtonClick}>
           Register
         </Button>
-        {isLoading && <CircularProgress />}
+        <Box display="flex" justifyContent="center">
+          {registerMutation.isLoading && <CircularProgress />}
+          {registerMutation.isSuccess && (
+            <Alert severity="success">Registration successful!</Alert>
+          )}
+          {registerMutation.isError && (
+            <Alert severity="error">{registerMutation.error as string}</Alert>
+          )}
+        </Box>
       </Stack>
     </>
   );

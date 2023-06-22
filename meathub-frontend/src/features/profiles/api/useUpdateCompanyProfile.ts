@@ -24,12 +24,13 @@ const mockUpdateCompanyProfileInfo = async (params: UpdateCompanyProfile) => {
   return Promise.resolve();
 };
 
+const fn = selectBasedOnMock(
+  mockUpdateCompanyProfileInfo,
+  updateCompanyProfileInfo
+);
+
 export const useUpdateCompanyProfile = () => {
   return useMutation({
-    mutationFn: (params: UpdateCompanyProfile) =>
-      selectBasedOnMock(
-        mockUpdateCompanyProfileInfo(params),
-        updateCompanyProfileInfo(params)
-      ),
+    mutationFn: (params: UpdateCompanyProfile) => fn(params),
   });
 };

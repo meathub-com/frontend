@@ -25,9 +25,10 @@ const mockCreateOffer = async (params: CreateCompanyOfferRequest) => {
   return Promise.resolve();
 };
 
+const fn = selectBasedOnMock(mockCreateOffer, createOffer);
+
 export const useCreateOffer = () => {
   return useMutation({
-    mutationFn: (params: CreateCompanyOfferRequest) =>
-      selectBasedOnMock(mockCreateOffer(params), createOffer(params)),
+    mutationFn: (params: CreateCompanyOfferRequest) => fn(params),
   });
 };
