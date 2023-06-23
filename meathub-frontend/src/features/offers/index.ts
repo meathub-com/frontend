@@ -5,6 +5,7 @@ export * from './components/Offer.tsx';
 export * from './components/Offers.tsx';
 export * from './components/CreateOfferForm.tsx';
 export * from './components/OfferDetails.tsx';
+export * from './components/OffersMap.tsx';
 
 export * from './api/useCreateOffer.ts';
 export * from './api/useGetOffers.ts';
