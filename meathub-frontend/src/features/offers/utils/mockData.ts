@@ -1,4 +1,5 @@
 import { OfferType } from '@/features/offers';
+import { PaginatedOffersParams } from '@/types';
 
 const polishCityNames = [
   'Warsaw',
@@ -55,10 +56,12 @@ const extractMeatItem = (offerName: string): string => {
   return match ? match[1] : '';
 };
 
-export const generateRandomOffers = (): OfferType[] => {
+export const generateRandomOffers = (
+  pageParams: PaginatedOffersParams
+): OfferType[] => {
   const offers: OfferType[] = [];
 
-  for (let i = 1; i <= 50; i++) {
+  for (let i = 1; i <= pageParams.pageSize; i++) {
     const randomCompanyName =
       groceryCompanyNames[getRandomInt(0, groceryCompanyNames.length - 1)];
     const randomOfferName = generateRandomOfferName();
@@ -68,7 +71,7 @@ export const generateRandomOffers = (): OfferType[] => {
     const randomPrice = getRandomInt(300, 500);
 
     const offer: OfferType = {
-      id: i,
+      id: i + pageParams.pageNumber * pageParams.pageSize,
       companyName: randomCompanyName,
       cityName: randomCityName,
       offerName: randomOfferName,
