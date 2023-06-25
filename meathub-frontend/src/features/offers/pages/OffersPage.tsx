@@ -39,7 +39,7 @@ export const OffersPage: React.FC = () => {
             }}
           >
             mapa
-            <OffersMap onOfferSelected={handleOfferSelected}/>
+            <OffersMap />
             {selectedOffer !== null && <OfferDetails offerDetails={selectedOffer} />}
           </Typography>
         </Paper>
