@@ -5,21 +5,41 @@ import {
   OfferType,
   generateRandomOffers,
 } from '@/features/offers';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { PaginatedOffersParams } from '@/types';
 
-const mockGetOffers = async (): Promise<OfferType[]> => {
-  await delay(3);
-  const offers = generateRandomOffers();
-  return offers;
+const DEFAULT_PAGE_SIZE = 10;
+
+const mockGetOffersPaginated = async (
+  pageParams: PaginatedOffersParams
+): Promise<OfferType[]> => {
+  await delay(1);
+  pageParams;
+  return generateRandomOffers(pageParams);
 };
 
-const getOffers = async (): Promise<OfferType[]> => {
-  return (await axios.get(GET_OFFERS_URL)).data;
+const getOffersPaginated = async (
+  pageParams: PaginatedOffersParams
+): Promise<OfferType[]> => {
+  return await axios.get(GET_OFFERS_URL, { params: pageParams });
 };
 
-export const useGetOffers = () => {
+const fn = selectBasedOnMock(mockGetOffersPaginated, getOffersPaginated);
+
+export const useGetOffersPaginated = (params: PaginatedOffersParams) => {
   return useQuery({
+    queryKey: ['offers', { params }],
+    keepPreviousData: true,
+    queryFn: () => fn(params),
+  });
+};
+
+export const useGetOffersInfiniteQuery = () => {
+  return useInfiniteQuery({
     queryKey: ['offers'],
-    queryFn: selectBasedOnMock(mockGetOffers, getOffers),
+    queryFn: ({ pageParam = 1 }) =>
+      fn({ pageNumber: pageParam, pageSize: DEFAULT_PAGE_SIZE }),
+    getNextPageParam: (lastPage, allPages) =>
+      lastPage.length === 0 ? undefined : allPages.length + 1,
   });
 };

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
-import { OfferDetails, OfferType, Offers,OffersMap } from '@/features/offers/index';
+
+import { OfferDetails, OfferType, Offers,OffersMap, InfiniteOffers } from '@/features/offers/index';
+
 
 
 export const OffersPage: React.FC = () => {
@@ -25,7 +27,7 @@ export const OffersPage: React.FC = () => {
     >
       <Box>
         <Paper elevation={6} sx={{ minWidth: '36rem' }}>
-          <Offers onOfferSelected={handleOfferSelected} />
+          <InfiniteOffers onOfferSelected={handleOfferSelected} />
         </Paper>
       </Box>
       <Box flexGrow="1" sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -40,7 +42,9 @@ export const OffersPage: React.FC = () => {
           >
             mapa
             <OffersMap />
-            {selectedOffer !== null && <OfferDetails offerDetails={selectedOffer} />}
+            {selectedOffer !== null && (
+              <OfferDetails offerDetails={selectedOffer} />
+            )}
           </Typography>
         </Paper>
       </Box>

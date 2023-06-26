@@ -13,6 +13,7 @@ import {
   useUpdateCompanyProfile,
   useCompanyProfileContext,
 } from '@/features/profiles/index.ts';
+import { useNavigate } from 'react-router-dom';
 
 export const CompanyDetails: React.FC = () => {
   const [name, setName] = useState('');
@@ -22,6 +23,7 @@ export const CompanyDetails: React.FC = () => {
   const [country, setCountry] = useState('');
 
   const updateProfileMutation = useUpdateCompanyProfile();
+  const navigate = useNavigate();
 
   const { setCompanyHasSubmittedInfo } = useCompanyProfileContext();
 
@@ -90,7 +92,20 @@ export const CompanyDetails: React.FC = () => {
           <Box display="flex" justifyContent="center">
             {updateProfileMutation.isLoading && <CircularProgress />}
             {updateProfileMutation.isSuccess && (
-              <Alert severity="success">Profile updated</Alert>
+              <Alert
+                severity="success"
+                action={
+                  <Button
+                    color="inherit"
+                    sx={{ whiteSpace: 'nowrap', mt: '-0.2rem' }}
+                    onClick={() => navigate('/company-profile')}
+                  >
+                    Go back
+                  </Button>
+                }
+              >
+                Profile updated
+              </Alert>
             )}
             {updateProfileMutation.isError && (
               <Alert severity="error">

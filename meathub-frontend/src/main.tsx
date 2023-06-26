@@ -7,9 +7,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { AuthContextProvider, LoginPage, RegisterPage } from '@/features/auth';
-import { CreateOffersPage, OffersPage } from '@/features/offers';
+import {
+  PaginatedOffersPage,
+  CreateOffersPage,
+  OffersPage,
+} from '@/features/offers';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { CompanyProfilePage, CompanyProfileContextProvider } from '@/features/profiles';
+import {
+  CompanyProfilePage,
+  CompanyProfileContextProvider,
+} from '@/features/profiles';
 import { FirstTimerSetup } from '@/features/profiles';
 import { LandingPage } from './features/ui/pages/LandingPage.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -33,7 +40,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'offers',
-        element: <OffersPage />,
+        element: <PaginatedOffersPage />,
       },
       {
         path: 'company-profile',

@@ -39,6 +39,14 @@ export const MainPageNavButtons: React.FC = () => {
           <Button
             size="large"
             variant="outlined"
+            onClick={() => navigate('/offers')}
+            sx={{ color: 'inherit' }}
+          >
+            Offers
+          </Button>
+          <Button
+            size="large"
+            variant="outlined"
             onClick={() => navigate('/company-profile')}
             sx={{ color: 'inherit' }}
           >
