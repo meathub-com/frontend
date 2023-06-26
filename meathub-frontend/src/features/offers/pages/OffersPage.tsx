@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
-import {
-  OfferDetails,
-  OfferType,
-  InfiniteOffers,
-} from '@/features/offers/index';
+
+import { OfferDetails, OfferType, Offers,OffersMap, InfiniteOffers } from '@/features/offers/index';
+
+
 
 export const OffersPage: React.FC = () => {
   const [selectedOffer, setSelectedOffer] = useState<OfferType | null>(null);
@@ -42,6 +41,7 @@ export const OffersPage: React.FC = () => {
             }}
           >
             mapa
+            <OffersMap />
             {selectedOffer !== null && (
               <OfferDetails offerDetails={selectedOffer} />
             )}
