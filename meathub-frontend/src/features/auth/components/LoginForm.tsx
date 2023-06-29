@@ -37,7 +37,6 @@ export const LoginForm: React.FC = () => {
         setCompanyId(data.companyId);
         storage.setToken(data.authToken);
         setUserRole(data.role);
-        await delay(1);
         navigate('/');
       },
     });

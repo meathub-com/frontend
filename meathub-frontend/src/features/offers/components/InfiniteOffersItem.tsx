@@ -6,7 +6,7 @@ type Props = {
   offerData: OfferType;
   onClick: () => void;
 };
-export const Offer: React.FC<Props> = (props) => {
+export const InfiniteOffersItem: React.FC<Props> = (props) => {
   const { id, item, price, cityName, offerName, companyName } = props.offerData;
 
   return (

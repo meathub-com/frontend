@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, CircularProgress, List } from '@mui/material';
 import {
-  Offer,
+  InfiniteOffersItem,
   OfferType,
   useGetOffersInfiniteQuery,
 } from '@/features/offers/index';
@@ -42,7 +42,7 @@ export const InfiniteOffers: React.FC<Props> = (props) => {
         {data.pages
           .flatMap((offers) => offers)
           .map((offer) => (
-            <Offer
+            <InfiniteOffersItem
               key={offer.id}
               offerData={offer}
               onClick={() => handleOfferClick(offer)}
